@@ -20,7 +20,7 @@ yum-config-manager \
 --add-repo \
 http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-yum update -y && yum install -y docker-ce
+yum install -y docker-ce
 
 # 创建 /etc/docker 目录
 mkdir /etc/docker
