@@ -168,7 +168,7 @@ https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-clu
 kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
 --discovery-token-ca-cert-hash sha256:66fbfcf18649a5841474c2dc4b9ff90c02fc05de0798ed690e1754437be35a01
 ```
-如果添加节点时出现以下报错并卡住,请在master重新创建token
+如果添加节点时出现以下报错并卡住，请在master重新创建token，重新创建token的命令，请参考下一步
 ```bash
 [root@localhost ~]# kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
 > --discovery-token-ca-cert-hash sha256:66fbfcf18649a5841474c2dc4b9ff90c02fc05de0798ed690e1754437be35a01
