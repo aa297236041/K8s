@@ -192,13 +192,17 @@ wget https://docs.projectcalico.org/manifests/calico.yaml
 yum install -y ca-certificates
 ```
 下载完后还需要修改里面定义Pod网络（CALICO_IPV4POOL_CIDR），与前面kubeadm init的 --pod-network-cidr指定的一样。
+![image](https://user-images.githubusercontent.com/66426170/167427316-0164c4f7-1d8d-4386-8d0b-8c722aacde07.png)
+
 修改完后文件后，部署：
 ```bash
 kubectl apply -f calico.yaml
 kubectl get pods -n kube-system
 ```
 等Calico Pod都Running，节点也会准备就绪：
-参考资料：https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
+参考资料：
+
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
 ### 7. 测试kubernetes集群
 在Kubernetes集群中创建一个pod，验证是否正常运行：
 ```bash
