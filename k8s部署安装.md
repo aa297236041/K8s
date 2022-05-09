@@ -181,7 +181,7 @@ kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
 kubeadm token create --print-join-command
 ```
 参考资料：https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/
-### 6. 部署容器网络（CNI） 
+### 6. 部署容器网络（CNI）master上执行 
 Calico是一个纯三层的数据中心网络方案，是目前Kubernetes主流的网络方案。
 下载YAML：
 ```bash
