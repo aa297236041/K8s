@@ -187,6 +187,10 @@ Calico是一个纯三层的数据中心网络方案，是目前Kubernetes主流�
 ```bash
 wget https://docs.projectcalico.org/manifests/calico.yaml
 ```
+#使用wget 下载不安全的https 报证书问题，执行以下命令解决。
+```bash
+yum install -y ca-certificates
+```
 下载完后还需要修改里面定义Pod网络（CALICO_IPV4POOL_CIDR），与前面kubeadm init的 --pod-network-cidr指定的一样。
 修改完后文件后，部署：
 ```bash
