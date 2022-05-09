@@ -158,6 +158,7 @@ localhost.localdomain   NotReady   control-plane,master   20s   v1.20.0
 注：由于网络插件还没有部署，还没有准备就绪 NotReady
 参考资料：
 https://kubernetes.io/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file 
+
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#initializing-your-control-plane-node 
 ### 5. 加入Kubernetes Node
 在192.168.31.62/63（Node）执行。
