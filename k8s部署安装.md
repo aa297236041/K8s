@@ -187,7 +187,7 @@ Calico是一个纯三层的数据中心网络方案，是目前Kubernetes主流�
 ```bash
 wget https://docs.projectcalico.org/manifests/calico.yaml
 ```
-#使用wget 下载不安全的https 报证书问题，执行以下命令解决。
+如果使用wget 下载不安全的https 报证书问题，可以执行以下命令解决。
 ```bash
 yum install -y ca-certificates
 ```
