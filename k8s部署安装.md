@@ -106,8 +106,11 @@ EOF
 ```
 #### 2.3 安装kubeadm，kubelet和kubectl
 由于版本更新频繁，这里指定版本号部署：
+```bash
 yum install -y kubelet-1.20.0 kubeadm-1.20.0 kubectl-1.20.0
+
 systemctl enable kubelet
+```
 ### 4. 部署Kubernetes Master
 在192.168.31.61（Master）执行。
 ```bash
