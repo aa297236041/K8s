@@ -113,6 +113,7 @@ systemctl enable kubelet
 ```
 ### 4. 部署Kubernetes Master
 在192.168.31.61（Master）执行,
+
 注意：别直接复制粘贴，要修改apiserver-advertise-address=${masterIP}
 ```bash
 kubeadm init \
