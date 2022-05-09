@@ -168,6 +168,14 @@ https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-clu
 kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
 --discovery-token-ca-cert-hash sha256:66fbfcf18649a5841474c2dc4b9ff90c02fc05de0798ed690e1754437be35a01
 ```
+如果添加节点时出现以下报错并卡住,请在master重新创建token
+```bash
+[root@localhost ~]# kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
+> --discovery-token-ca-cert-hash sha256:66fbfcf18649a5841474c2dc4b9ff90c02fc05de0798ed690e1754437be35a01
+[preflight] Running pre-flight checks
+	[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 20.10.15. Latest validated version: 19.03
+ 
+```
 默认token有效期为24小时，当过期之后，该token就不可用了。这时就需要重新创建token，可以直接使用命令快捷生成：
 ```bash
 kubeadm token create --print-join-command
