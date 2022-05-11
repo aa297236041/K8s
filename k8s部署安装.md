@@ -191,6 +191,9 @@ wget https://docs.projectcalico.org/manifests/calico.yaml
 ```bash
 yum install -y ca-certificates
 ```
+```bash
+vim calico.yaml
+```
 下载完后还需要修改里面定义Pod网络（CALICO_IPV4POOL_CIDR），与前面kubeadm init的 --pod-network-cidr指定的一样。
 ![image](https://user-images.githubusercontent.com/66426170/167427316-0164c4f7-1d8d-4386-8d0b-8c722aacde07.png)
 
