@@ -194,28 +194,23 @@ kubeadm join 192.168.31.61:6443 --token 7gqt13.kncw9hg5085iwclx \
 kubeadm token create --print-join-command
 ```
 参考资料：https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/
-### 6. 部署容器网络（CNI）master上执行 
-Calico是一个纯三层的数据中心网络方案，是目前Kubernetes主流的网络方案。
+### 6. 安装网络插件，只在master节点操作即可 
 下载YAML：
 ```bash
-wget https://docs.projectcalico.org/manifests/calico.yaml
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 如果使用wget 下载不安全的https 报证书问题，可以执行以下命令解决。
 ```bash
 yum install -y ca-certificates
 ```
-```bash
-vim calico.yaml
-```
-下载完后还需要修改里面定义Pod网络（CALICO_IPV4POOL_CIDR），与前面kubeadm init的 --pod-network-cidr指定的一样。
-![image](https://user-images.githubusercontent.com/66426170/167427316-0164c4f7-1d8d-4386-8d0b-8c722aacde07.png)
+
 
 修改完后文件后，部署：
 ```bash
-kubectl apply -f calico.yaml
+kubectl apply -f kube-flannel.yml
 kubectl get pods -n kube-system
 ```
-等Calico Pod都Running，节点也会准备就绪：
+等 Pod都Running，节点也会准备就绪：
 参考资料：
 
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
