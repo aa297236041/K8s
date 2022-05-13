@@ -116,7 +116,7 @@ done
 #### 所有node节点执行
 ```bash
 	cat <<EOF >> /etc/fstab
-	/data/bcs/localpv/vol01 /mnt/blueking/vol01 none defaults,bind 0 0
+/data/bcs/localpv/vol01 /mnt/blueking/vol01 none defaults,bind 0 0
 /data/bcs/localpv/vol02 /mnt/blueking/vol02 none defaults,bind 0 0
 /data/bcs/localpv/vol03 /mnt/blueking/vol03 none defaults,bind 0 0
 /data/bcs/localpv/vol04 /mnt/blueking/vol04 none defaults,bind 0 0
