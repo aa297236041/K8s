@@ -1,4 +1,4 @@
-#### 1.3 操作系统初始化配置
+#### 1.3 操作系统初始化配置（新增node 上执行）
 ```bash
 # 关闭防火墙
  
@@ -49,7 +49,7 @@ yum install ntpdate -y
 ntpdate time.windows.com
 
 ```
-### 2. 安装Docker/kubeadm/kubelet【所有节点】
+### 2. 安装Docker/kubeadm/kubelet【新增node 上执行】
 这里使用Docker作为容器引擎，也可以换成别的，例如containerd
 #### 2.1 安装Docker
 ```bash
@@ -113,7 +113,7 @@ done
 
 ### 安装默认的storageClass，采取local pv provisioner的charts安装。由于bcs.sh脚本默认安装的环境以及自动做好了 /mnt/blueking 目录的挂载。直接用默认参数安装localpv即可。
 
-#### 所有node节点执行
+#### 新增 node节点执行
 ```bash
 cat <<EOF >> /etc/fstab
 /data/bcs/localpv/vol01 /mnt/blueking/vol01 none defaults,bind 0 0
@@ -150,7 +150,7 @@ kubectl get pv -A   #看一下是不是已经创建了PV。
 挂载后记得看下对应/mnt/blueking下有没有生成对应的目录。
 
 
-### 部署基础套餐后台
+### 部署基础套餐后台（master执行）
 执行部署基础套餐命令（该步骤根据机器环境配置，大概需要 8 ~ 16 分钟）
 ```bash
 helmfile -f base.yaml.gotmpl sync
