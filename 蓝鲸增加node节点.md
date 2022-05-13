@@ -132,6 +132,44 @@ EOF
 ```
 
 <a id="hosts-in-bk-ctrl" name="hosts-in-bk-ctrl"></a>
+### 安装默认的storageClass，采取local pv provisioner的charts安装。由于bcs.sh脚本默认安装的环境以及自动做好了 /mnt/blueking 目录的挂载。直接用默认参数安装localpv即可。
+
+#### 所有node节点执行
+```bash
+	cat <<EOF >> /etc/fstab
+	/data/bcs/localpv/vol01 /mnt/blueking/vol01 none defaults,bind 0 0
+/data/bcs/localpv/vol02 /mnt/blueking/vol02 none defaults,bind 0 0
+/data/bcs/localpv/vol03 /mnt/blueking/vol03 none defaults,bind 0 0
+/data/bcs/localpv/vol04 /mnt/blueking/vol04 none defaults,bind 0 0
+/data/bcs/localpv/vol05 /mnt/blueking/vol05 none defaults,bind 0 0
+/data/bcs/localpv/vol06 /mnt/blueking/vol06 none defaults,bind 0 0
+/data/bcs/localpv/vol07 /mnt/blueking/vol07 none defaults,bind 0 0
+/data/bcs/localpv/vol08 /mnt/blueking/vol08 none defaults,bind 0 0
+/data/bcs/localpv/vol09 /mnt/blueking/vol09 none defaults,bind 0 0
+/data/bcs/localpv/vol10 /mnt/blueking/vol10 none defaults,bind 0 0
+/data/bcs/localpv/vol11 /mnt/blueking/vol11 none defaults,bind 0 0
+/data/bcs/localpv/vol12 /mnt/blueking/vol12 none defaults,bind 0 0
+/data/bcs/localpv/vol13 /mnt/blueking/vol13 none defaults,bind 0 0
+/data/bcs/localpv/vol14 /mnt/blueking/vol14 none defaults,bind 0 0
+/data/bcs/localpv/vol15 /mnt/blueking/vol15 none defaults,bind 0 0
+/data/bcs/localpv/vol16 /mnt/blueking/vol16 none defaults,bind 0 0
+/data/bcs/localpv/vol17 /mnt/blueking/vol17 none defaults,bind 0 0
+/data/bcs/localpv/vol18 /mnt/blueking/vol18 none defaults,bind 0 0
+/data/bcs/localpv/vol19 /mnt/blueking/vol19 none defaults,bind 0 0
+/data/bcs/localpv/vol20 /mnt/blueking/vol20 none defaults,bind 0 0
+EOF
+
+for i in $(grep 'mnt' /etc/fstab |awk '{print $1}'); do mkdir -p $i; done
+for i in $(grep 'mnt' /etc/fstab |awk '{print $2}'); do mkdir -p $i; done
+mount -a
+```
+#### master上执行
+```bash
+helmfile -f 00-localpv.yaml.gotmpl sync
+kubectl get pv -A   #看一下是不是已经创建了PV。
+```
+挂载后记得看下对应/mnt/blueking下有没有生成对应的目录。
+
 
 ### 配置 docker 使用 http 访问 registry
 在 SaaS 专用 node （如未配置专用 node，则为全部 node ）上执行命令生成新的配置文件：
