@@ -110,28 +110,7 @@ done
 常见报错：
 1. `Host key verification failed.`，且开头提示 `REMOTE HOST IDENTIFICATION HAS CHANGED`: 检查目的主机是否重装过。如果确认没连错机器，可以参考提示（如 `Offending 类型 key in /root/.ssh/known_hosts:行号`）删除 `known_hosts` 文件里的对应行。
 
-## 配置 k8s node 的 DNS
-k8s node 需要能从 bkrepo 中拉取镜像。因此需要配置 DNS 。
 
->**注意**
->
->pod 删除重建后，clusterIP 会变动，需刷新 hosts 文件。
-
-请在 **中控机** 执行如下脚本 **生成 hosts 内容**，然后将其追加到所有的 `node` 的 `/etc/hosts` 文件结尾（如 pod 经历删除重建，则需要更新 hosts 文件覆盖 pod 相应的域名）。
-
-``` bash
-BK_DOMAIN=bkce7.bktencent.com  # 请和 domain.bkDomain 保持一致.
-IP1=$(kubectl -n blueking get svc -l app.kubernetes.io/instance=ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
-IP2=$(kubectl -n blueking get svc -l app=bk-ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
-cat <<EOF
-$IP1 $BK_DOMAIN
-$IP1 bkrepo.$BK_DOMAIN
-$IP1 docker.$BK_DOMAIN
-$IP2 apps.$BK_DOMAIN
-EOF
-```
-
-<a id="hosts-in-bk-ctrl" name="hosts-in-bk-ctrl"></a>
 ### 安装默认的storageClass，采取local pv provisioner的charts安装。由于bcs.sh脚本默认安装的环境以及自动做好了 /mnt/blueking 目录的挂载。直接用默认参数安装localpv即可。
 
 #### 所有node节点执行
@@ -170,6 +149,39 @@ kubectl get pv -A   #看一下是不是已经创建了PV。
 ```
 挂载后记得看下对应/mnt/blueking下有没有生成对应的目录。
 
+
+### 部署基础套餐后台
+执行部署基础套餐命令（该步骤根据机器环境配置，大概需要 8 ~ 16 分钟）
+```bash
+helmfile -f base.yaml.gotmpl sync
+```
+此时可以新开一个终端下，执行如下命令观察 pod 状态变化：
+```bash
+kubectl get pods -n blueking -w
+```
+
+### 配置 k8s node 的 DNS
+k8s node 需要能从 bkrepo 中拉取镜像。因此需要配置 DNS 。
+
+>**注意**
+>
+>pod 删除重建后，clusterIP 会变动，需刷新 hosts 文件。
+
+请在 **中控机** 执行如下脚本 **生成 hosts 内容**，然后将其追加到所有的 `node` 的 `/etc/hosts` 文件结尾（如 pod 经历删除重建，则需要更新 hosts 文件覆盖 pod 相应的域名）。
+
+``` bash
+BK_DOMAIN=bkce7.bktencent.com  # 请和 domain.bkDomain 保持一致.
+IP1=$(kubectl -n blueking get svc -l app.kubernetes.io/instance=ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
+IP2=$(kubectl -n blueking get svc -l app=bk-ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
+cat <<EOF
+$IP1 $BK_DOMAIN
+$IP1 bkrepo.$BK_DOMAIN
+$IP1 docker.$BK_DOMAIN
+$IP2 apps.$BK_DOMAIN
+EOF
+```
+
+<a id="hosts-in-bk-ctrl" name="hosts-in-bk-ctrl"></a>
 
 ### 配置 docker 使用 http 访问 registry
 在 SaaS 专用 node （如未配置专用 node，则为全部 node ）上执行命令生成新的配置文件：
