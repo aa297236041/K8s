@@ -72,6 +72,7 @@ modprobe -- ip_vs_wrr
 modprobe -- ip_vs_sh
 modprobe -- nf_conntrack_ipv4
 EOF
+
 # 3.为脚本添加执行权限
 chmod +x /etc/sysconfig/modules/ipvs.modules
 # 4.执行脚本文件
