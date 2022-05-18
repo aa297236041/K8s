@@ -89,7 +89,7 @@ yum install -y kubelet-1.20.0 kubeadm-1.20.0 kubectl-1.20.0
 systemctl enable kubelet
 ```
 
-### 加入Kubernetes Node
+### 加入Kubernetes Node (master执行)
 由于默认token 有效期为24小时，当过期之后，该token 就不可用了。这时就需要在master 重新创建token，可以直接使用命令快捷生成：
 ```bash
 kubeadm token create --print-join-command
