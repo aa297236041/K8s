@@ -26,9 +26,9 @@ EOF
 
 
 # 1.安装ipset和ipvsadm
-[root@master ~]# yum install ipset ipvsadm -y
+yum install ipset ipvsadm -y
 # 2.添加需要加载的模块写入脚本文件
-[root@master ~]# cat <<EOF> /etc/sysconfig/modules/ipvs.modules
+cat <<EOF> /etc/sysconfig/modules/ipvs.modules
 #!/bin/bash
 modprobe -- ip_vs
 modprobe -- ip_vs_rr
@@ -37,11 +37,11 @@ modprobe -- ip_vs_sh
 modprobe -- nf_conntrack_ipv4
 EOF
 # 3.为脚本添加执行权限
-[root@master ~]# chmod +x /etc/sysconfig/modules/ipvs.modules
+chmod +x /etc/sysconfig/modules/ipvs.modules
 # 4.执行脚本文件
-[root@master ~]# /bin/bash /etc/sysconfig/modules/ipvs.modules
+/bin/bash /etc/sysconfig/modules/ipvs.modules
 # 5.查看对应的模块是否加载成功
-[root@master ~]# lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+lsmod | grep -e ip_vs -e nf_conntrack_ipv4
 
 
 # 时间同步
