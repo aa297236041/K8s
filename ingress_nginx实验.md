@@ -30,7 +30,8 @@ wget https://github.com/aa297236041/K8s-/blob/main/ingress/mandatory.yaml
 ```bash
 vim mandatory.yaml
 ```
-![image](https://user-images.githubusercontent.com/66426170/169311618-53094620-dca4-404f-aec7-8bef91557782.png)
+![image](https://user-images.githubusercontent.com/66426170/169336442-6ab0b905-42f7-463f-ab57-b25dc88966a8.png)
+
 
 
 部署Ingress-Nginx
