@@ -571,12 +571,12 @@ ingress-nginx-demo   www.testweb.com              80, 443   1
 
 ### 修改nginx静态文件
 ```bash
-[root@master01 ingress]# kubectl get pod -A |grep nginx-demo 
+[root@master01 ingress]# kubectl get pod -A |grep nginx-demo   #查找nginx-pod
 default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Running     0          64m
 
-[root@master01 ingress]# kubectl exec -it nginx-demo-5c7f89f7b-9bvz6 -n default -- /bin/sh 
+[root@master01 ingress]# kubectl exec -it nginx-demo-5c7f89f7b-9bvz6 -n default -- /bin/sh   #进入pod
 
-/ # vi /usr/share/nginx/html/index.html
+/ # vi /usr/share/nginx/html/index.html    # 修改静态文件
 
 <body>
 <h1>Welcome: xxxxx </h1>
