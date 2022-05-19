@@ -558,7 +558,6 @@ EOF
 ```bash
 kubectl apply -f nginx-web-ingress.yaml
 
-kubectl get ingress
 ```
 
 检查ingress
