@@ -5,7 +5,7 @@
     
     
 ### 环境准备：
-搭建k8s集群：可以参考 [k8s部署安装.md](https://github.com/aa297236041/K8s-/blob/main/k8s%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85.md)
+搭建 k8s 集群：可以参考 [k8s部署安装.md](https://github.com/aa297236041/K8s-/blob/main/k8s%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85.md)
 
 <br/>
 
@@ -21,12 +21,12 @@ mkdir /ingress
 cd /ingress
 ```
 
-下载ingress-nginx的yaml文件
+下载 ingress-nginx 的 yaml 文件
 ```bash
 wget https://github.com/aa297236041/K8s-/blob/main/ingress/mandatory.yaml
 ```
 
-编辑mandatory.yaml
+编辑 mandatory.yaml
 ```bash
 vim mandatory.yaml
 ```
@@ -34,7 +34,7 @@ vim mandatory.yaml
 
 
 
-部署Ingress-Nginx
+部署 Ingress-Nginx
 ```bash
 kubectl apply -f mandatory.yaml
 
@@ -86,7 +86,7 @@ kubectl apply -f nginx-demo.yaml
 kubectl get pods
 ```
 
-创建ingress规则,HTTP配置 
+创建 ingress 规则, HTTP 配置 
 ```bash
 cat >nginx-web-ingress.yaml <<EOF
 apiVersion: extensions/v1beta1
@@ -114,7 +114,7 @@ kubectl get ingress
 
 ```
 
-### 如果要配置HTTPS，看下面的配置
+### 如果要配置 HTTPS，看下面的配置
 生成证书
 ```bash
 wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -O /usr/local/bin/cfssl
@@ -128,7 +128,7 @@ chmod +x /usr/local/bin/cfssl /usr/local/bin/cfssljson /usr/local/bin/cfssl-cert
 export PATH=/usr/local/bin:$PATH
 ```
 
-定义一个CA机构
+定义一个 CA 机构
 ```bash
 cat > ca-config.json <<EOF
 {
@@ -170,12 +170,12 @@ cat > ca-csr.json <<EOF
 EOF
 ```
 
-创建一个CA机构
+创建一个 CA 机构
 ```bash
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
 ```
 
-通过上定义的CA颁发一个 testweb.com 域名证书  ,这里创建的是一个通配符的证书
+通过上定义的 CA 颁发一个 testweb.com 域名证书  ,这里创建的是一个通配符的证书
 ```bash
 cat > ssl-csr.json <<EOF
 {
@@ -200,16 +200,16 @@ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kube
 ```
 
 
-将证书pem保存到secret
+将证书 pem 保存到 secret
 ```basj
 kubectl create secret tls testweb.com --cert=testweb.com.pem --key=testweb.com-key.pem
 ```
-查看secret
+查看 secret
 ```bash
 kubectl get secret
 ```
 
-HTTP 和 HTTPS配置
+HTTP 和 HTTPS 配置
 ```bash
 cat >nginx-web-ingress.yaml <<EOF
 apiVersion: extensions/v1beta1 
@@ -239,7 +239,7 @@ kubectl apply -f nginx-web-ingress.yaml
 
 ```
 
-检查ingress
+检查 ingress
 ```bash
 [root@node223 ~]# kubectl get ingress
 NAME                HOSTS              ADDRESS   PORTS     AGE
@@ -247,7 +247,7 @@ ingress-nginx-demo   www.testweb.com              80, 443   1
 
 ```
 
-### 修改nginx静态文件
+### 修改 nginx 静态文件
 ```bash
 [root@master01 ingress]# kubectl get pod -A |grep nginx-demo   #查找nginx-pod
 default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Running     0          64m
@@ -264,10 +264,10 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 ```
 
 ### 客户端访问
-在pc配置honsts将www.testweb.com指k8s控制器的IP
+在pc配置 honsts 将 www.testweb.com 指 k8s 控制器的 IP
 ![image](https://user-images.githubusercontent.com/66426170/169309256-65c68df7-e567-479c-8e11-b4feaee6f65b.png)
 
-在浏览器里面访问这个域名的(http\https)
+在浏览器里面访问这个域名的 (http\https)
 
 ![image](https://user-images.githubusercontent.com/66426170/169316660-a9990d24-f23b-43e2-938c-78e497f923c8.png)
 
