@@ -325,36 +325,6 @@ kubectl get pods --all-namespaces |grep ingress
 kubectl get pods -n ingress-nginx -o wide
 ```
 ```bash
-cat >service-nodeport.yaml <<EOF
-apiVersion: v1
-kind: Service
-metadata:
-  name: ingress-nginx
-  namespace: ingress-nginx
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-spec:
-  type: NodePort
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
-      nodePort: 30080  #http
-      protocol: TCP
-    - name: https
-      port: 443
-      targetPort: 443
-      nodePort: 30443  #https
-      protocol: TCP
-  selector:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-    
----
-EOF
-```
-```bash
 kubectl apply -f service-nodeport.yaml
 
 kubectl get pods -n ingress-nginx -o wide
@@ -593,3 +563,21 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 ![image](https://user-images.githubusercontent.com/66426170/169316660-a9990d24-f23b-43e2-938c-78e497f923c8.png)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+来源此文档
+https://www.cnblogs.com/blog-lhong/p/11882644.html
