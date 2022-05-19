@@ -288,5 +288,5 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 
 
 
-来源此文档
-https://www.cnblogs.com/blog-lhong/p/11882644.html
+
+
