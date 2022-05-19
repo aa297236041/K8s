@@ -575,4 +575,5 @@ ingress-nginx-demo   www.testweb.com              80, 443   1
 
 在浏览器里面访问这个域名的(http\https)
 
+![Uploading image.png…]()
 
