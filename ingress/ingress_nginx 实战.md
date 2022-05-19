@@ -264,7 +264,7 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 ```
 
 ### 客户端访问
-在pc配置 honsts 将 www.testweb.com 指 k8s 控制器的 IP
+在 PC 上配置 honsts 将 www.testweb.com 指 k8s 控制器的 IP
 ![image](https://user-images.githubusercontent.com/66426170/169309256-65c68df7-e567-479c-8e11-b4feaee6f65b.png)
 
 在浏览器里面访问这个域名的 (http\https)
