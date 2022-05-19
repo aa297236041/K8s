@@ -309,6 +309,13 @@ spec:
 ' >mandatory.yaml 
 ```
 
+编辑mandatory.yaml
+```bash
+vim mandatory.yaml
+```
+![image](https://user-images.githubusercontent.com/66426170/169311618-53094620-dca4-404f-aec7-8bef91557782.png)
+
+
 部署Ingress-Nginx
 ```bash
 kubectl apply -f mandatory.yaml
