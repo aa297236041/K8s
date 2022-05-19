@@ -223,7 +223,7 @@ kubectl expose deployment nginx --port=80 --type=NodePort
 kubectl get pod,svc
 ```
 访问地址：http://NodeIP:Port 
-### 8. 部署 Dashboard
+### 8. 部署 Dashboard （可选）
 Dashboard是官方提供的一个UI，可用于基本管理K8s资源。
 ```bash
 wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
