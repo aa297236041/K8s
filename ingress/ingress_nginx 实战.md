@@ -42,15 +42,6 @@ kubectl get pods --all-namespaces |grep ingress
 
 kubectl get pods -n ingress-nginx -o wide
 ```
-```bash
-kubectl apply -f service-nodeport.yaml
-
-kubectl get pods -n ingress-nginx -o wide
-
-kubectl describe pod $( kubectl get pods -n ingress-nginx |grep nginx-ingress-controller |awk '{print $1}') -n ingress-nginx
-
-kubectl get nodes --show-labels
-```
 
 创建一个应用实例
 ```bash
