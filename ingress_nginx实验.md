@@ -569,6 +569,22 @@ ingress-nginx-demo   www.testweb.com              80, 443   1
 
 ```
 
+### 修改nginx静态文件
+```bash
+[root@master01 ingress]# kubectl get pod -A |grep nginx-demo 
+default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Running     0          64m
+
+[root@master01 ingress]# kubectl exec -it nginx-demo-5c7f89f7b-9bvz6 -n default -- /bin/sh 
+
+/ # vi /usr/share/nginx/html/index.html
+
+<body>
+<h1>Welcome: xxxxx </h1>
+</body>
+</html>
+
+```
+
 ### 客户端访问
 在pc配置honsts将www.testweb.com指k8s控制器的IP
 ![image](https://user-images.githubusercontent.com/66426170/169309256-65c68df7-e567-479c-8e11-b4feaee6f65b.png)
