@@ -1,7 +1,7 @@
 ### 实验要求：
     - ingress 的域名统一为：xxx.bktencent.com
     - 访问的页面内容统一为：Welcome: <自身的名字>
-    - 暴露的端口必须为 8081，访问时为 xxxx.bktencent.com:80841
+    - 暴露的端口必须为 8081，访问时为 xxxx.bktencent.com:8081
     
     
 ### 环境准备：
