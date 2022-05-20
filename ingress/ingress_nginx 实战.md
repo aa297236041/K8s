@@ -23,7 +23,7 @@ cd /ingress
 
 下载 ingress-nginx 的 yaml 文件
 ```bash
-wget https://github.com/aa297236041/K8s-/releases/download/untagged-d31719083ac3d1b30698/mandatory.yaml
+wget https://github.com/aa297236041/K8s-/releases/download/v1/mandatory.yaml
 ```
 
 编辑 mandatory.yaml
