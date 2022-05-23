@@ -276,7 +276,7 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 
 在上面的访问测试中，虽然访问到了对应的服务，但是有一个弊端，就是在做DNS解析的时候，只能指定Ingress-nginx容器所在的节点IP。而指定k8s集群内部的其他节点IP（包括master）都是不可以访问到的，如果这个节点一旦宕机，Ingress-nginx容器被转移到其他节点上运行（不考虑节点标签的问题，其实保持Ingress-nginx的yaml文件中默认的标签的话，那么每个节点都是有那个标签的）。随之还要我们手动去更改DNS解析的IP（要更改为Ingress-nginx容器所在节点的IP，通过命令“kubectl get pod -n ingress-nginx -o wide”可以查看到其所在节点），很是麻烦。
 
-有没有更简单的一种方法呢？答案是肯定的，就是我们为Ingress-nginx规则再创建一个类型为nodePort的Service，这样，在配置DNS解析时，就可以使用www.test01.com 绑定所有node节点，包括master节点的IP了，很是灵活。
+有没有更简单的一种方法呢？答案是肯定的，就是我们为Ingress-nginx规则再创建一个类型为nodePort的Service，这样，在配置DNS解析时，就可以使用www.testweb.com 绑定所有node节点，包括master节点的IP了，很是灵活。
 
 6、为Ingress规则创建一个Service
  ```bash
