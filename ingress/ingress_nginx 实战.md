@@ -272,6 +272,50 @@ default         nginx-demo-5c7f89f7b-9bvz6                        1/1     Runnin
 ![image](https://user-images.githubusercontent.com/66426170/169316660-a9990d24-f23b-43e2-938c-78e497f923c8.png)
 
 
+### 为Ingress规则创建一个Service
+
+在上面的访问测试中，虽然访问到了对应的服务，但是有一个弊端，就是在做DNS解析的时候，只能指定Ingress-nginx容器所在的节点IP。而指定k8s集群内部的其他节点IP（包括master）都是不可以访问到的，如果这个节点一旦宕机，Ingress-nginx容器被转移到其他节点上运行（不考虑节点标签的问题，其实保持Ingress-nginx的yaml文件中默认的标签的话，那么每个节点都是有那个标签的）。随之还要我们手动去更改DNS解析的IP（要更改为Ingress-nginx容器所在节点的IP，通过命令“kubectl get pod -n ingress-nginx -o wide”可以查看到其所在节点），很是麻烦。
+
+有没有更简单的一种方法呢？答案是肯定的，就是我们为Ingress-nginx规则再创建一个类型为nodePort的Service，这样，在配置DNS解析时，就可以使用www.test01.com 绑定所有node节点，包括master节点的IP了，很是灵活。
+
+6、为Ingress规则创建一个Service
+ ```bash
+[root@master ~]# vim service-nodeport.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    
+//编辑完，保存退出即可
+ ```
+ ```bash
+[root@master ~]# kubectl apply -f service-nodeport.yaml  //执行yaml文件
+[root@master ~]# kubectl  get  svc -n ingress-nginx  //查看运行的service
+NAME            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx   NodePort   10.108.48.248   <none>        80:32529/TCP,443:30534/TCP   11s
+//可以看到service分别将80和443端口映射到了节点的32529和30543端口（随机映射的，也可以修改yaml文件指定端口）
+```
+至此，这个www.testweb.com 的域名即可和群集中任意节点的32529/30543端口进行绑定了。
+
+
 
 
 
