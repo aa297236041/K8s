@@ -200,7 +200,7 @@ kubeadm token create --print-join-command
 ```bash
 wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
-> 如果使用wget 下载不安全的https 报证书问题，可以执行以下命令解决。``
+> 如果使用wget 下载不安全的https 报证书问题，可以执行这个命令解决。``
 yum install -y ca-certificates
 ``
 
