@@ -74,11 +74,12 @@ modprobe -- nf_conntrack_ipv4
 EOF
 
 cat <<EOF> /etc/sysctl.d/kubernetes.conf
-> net.bridge.bridge-nf-call-ip6tables = 1
-> net.bridge.bridge-nf-call-iptables = 1
-> net.ipv4.ip_forward = 1
-> vm.swappiness = 0
-> EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+vm.swappiness = 0
+EOF
+sysctl --system
 
 # 3.为脚本添加执行权限
 chmod +x /etc/sysconfig/modules/ipvs.modules
