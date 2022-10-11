@@ -60,10 +60,11 @@ cat >> /etc/hosts << EOF
 192.168.31.63 k8s-node2
 EOF
 
-
-# 1.安装ipset和ipvsadm
+#在kubernetes 中 service 有两种代理模型，一种是基于 iptables 的，一种是基于 ipvs 的
+两者比较的话，ipvs 的性能明显要高一些，但是如果要使用它，需要手动载入 ipvs 模块。
+# 安装ipset和ipvsadm
 yum install ipset ipvsadm -y
-# 2.添加需要加载的模块写入脚本文件
+# 添加需要加载的模块写入脚本文件
 cat <<EOF> /etc/sysconfig/modules/ipvs.modules
 #!/bin/bash
 modprobe -- ip_vs
@@ -72,6 +73,14 @@ modprobe -- ip_vs_wrr
 modprobe -- ip_vs_sh
 modprobe -- nf_conntrack_ipv4
 EOF
+
+# 3.为脚本添加执行权限
+chmod +x /etc/sysconfig/modules/ipvs.modules
+# 4.执行脚本文件
+/bin/bash /etc/sysconfig/modules/ipvs.modules
+# 5.查看对应的模块是否加载成功
+lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+
 
 #修改 linux 的内核参数，添加网桥过滤和地址转发功能
 cat <<EOF> /etc/sysctl.d/kubernetes.conf
@@ -86,12 +95,9 @@ sysctl --p
 #加载网桥过滤模块
 modprobe br_netfilter
 
-# 3.为脚本添加执行权限
-chmod +x /etc/sysconfig/modules/ipvs.modules
-# 4.执行脚本文件
-/bin/bash /etc/sysconfig/modules/ipvs.modules
-# 5.查看对应的模块是否加载成功
-lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+#查看网桥过滤模块是否加载成功，如果有则加载成功
+lsmod |grep br_netfilter
+
 
 
 # 时间同步
