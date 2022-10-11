@@ -90,7 +90,7 @@ net.ipv4.ip_forward = 1
 EOF
 
 #重新加载配置
-sysctl --p
+sysctl -p
 
 #加载网桥过滤模块
 modprobe br_netfilter
