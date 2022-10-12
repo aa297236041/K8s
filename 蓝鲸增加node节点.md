@@ -113,6 +113,7 @@ systemctl enable kubelet
 kubeadm token create --print-join-command
 ```
 > 如果你用的是蓝鲸脚本部署的 k8s 请使用蓝鲸的命令进行扩容
+> 
 > curl -fsSL https://bkopen-1252002024.file.myqcloud.com/ce7/bcs.sh | bash -s -- -i k8sctrl
 
 ### 在中控机配置 ssh 免密登录
