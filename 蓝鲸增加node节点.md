@@ -107,11 +107,13 @@ yum install -y kubelet-1.20.0 kubeadm-1.20.0 kubectl-1.20.0
 systemctl enable kubelet
 ```
 
-### 加入Kubernetes Node (master执行)
+### 生成扩容 node 节点命令 (master执行)
 由于默认token 有效期为24小时，当过期之后，该token 就不可用了。这时就需要在master 重新创建token，可以直接使用命令快捷生成：
 ```bash
 kubeadm token create --print-join-command
 ```
+> 如果你用的是蓝鲸脚本部署的 k8s 请使用蓝鲸的命令进行扩容
+> curl -fsSL https://bkopen-1252002024.file.myqcloud.com/ce7/bcs.sh | bash -s -- -i k8sctrl
 
 ### 在中控机配置 ssh 免密登录
 本文中会提供命令片段方便您部署。部分命令片段会从中控机上调用 `ssh` 在 k8s node 上执行远程命令，所以需提前配置免密登录。
