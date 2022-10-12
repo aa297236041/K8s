@@ -43,6 +43,24 @@ chmod +x /etc/sysconfig/modules/ipvs.modules
 # 5.查看对应的模块是否加载成功
 lsmod | grep -e ip_vs -e nf_conntrack_ipv4
 
+#修改 linux 的内核参数，添加网桥过滤和地址转发功能
+cat <<EOF> /etc/sysctl.d/kubernetes.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+#重新加载配置
+sysctl -p
+
+#加载网桥过滤模块
+modprobe br_netfilter
+
+#查看网桥过滤模块是否加载成功，如果有则加载成功
+lsmod |grep br_netfilter
+
+
+
 
 # 时间同步
 yum install ntpdate -y
