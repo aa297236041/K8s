@@ -7,5 +7,23 @@
 
 ## 下载安装
 
+```bash
+#下载
+wget https://github.com/aa297236041/K8s/releases/download/k9s/k9s_Linux_x86_64.tar.gz
+
+#解压
+tar xf k9s_Linux_x86_64.tar.gz
+
+# 移动到 bin 目录下
+mv k9s /usr/bin/
+```
+
+# 执行命令验证
+```bash
+k9s
+```
+![image](https://user-images.githubusercontent.com/66426170/195751858-612cf00c-ff8d-4e5d-b74d-4ba453019ced.png)
+
+具体使用可以网上搜索下
 
 
