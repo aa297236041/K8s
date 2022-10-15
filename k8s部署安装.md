@@ -233,6 +233,14 @@ kubectl get pods -n kube-system
 参考资料：
 
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
+### 配置 kubectl 命令行补全
+```bash
+yum install -y bash-completion
+mkdir -p /etc/bash_completion.d/
+kubectl completion bash > /etc/bash_completion.d/kubectl  # 添加命令行补全
+source /etc/bash_completion.d/kubectl  # 补全会在下次登录时加载，如需在当前会话补全，主动加载之。
+```
+
 ### 7. 测试kubernetes集群
 在Kubernetes集群中创建一个pod，验证是否正常运行：
 ```bash
