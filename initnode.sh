@@ -1,6 +1,4 @@
 ## k8s 系统初始化脚本
-
-
 #!/bin/bash
 # 关闭selinux
 set -e
