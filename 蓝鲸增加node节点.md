@@ -82,6 +82,9 @@ cat > /etc/docker/daemon.json << EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
 EOF
 
 systemctl restart docker
