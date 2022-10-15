@@ -1,3 +1,5 @@
+## k8s 系统初始化脚本
+
 ```bash
 #!/bin/bash
 # 关闭selinux
