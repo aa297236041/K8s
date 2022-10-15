@@ -1,6 +1,6 @@
 ## k8s 系统初始化脚本
 
-```bash
+
 #!/bin/bash
 # 关闭selinux
 set -e
@@ -94,5 +94,5 @@ docker info
 yum install -y kubelet-1.20.0 kubeadm-1.20.0 kubectl-1.20.0
 
 systemctl enable kubelet
-```
+
 
