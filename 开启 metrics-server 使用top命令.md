@@ -1,9 +1,10 @@
 版本列表 ：https://github.com/kubernetes-sigs/metrics-server/releases
 ```bash
-wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.0/components.yaml
+wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.1/components.yaml
 ```
 
 修改镜像仓库地址
+vim components.yaml
 ```bash
 
   selector:
