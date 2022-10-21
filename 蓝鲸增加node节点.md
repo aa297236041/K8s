@@ -234,3 +234,7 @@ docker info
   127.0.0.0/8
 ```
 
+### 安装agent
+![image](https://user-images.githubusercontent.com/66426170/197148941-473df451-1242-4c6c-b9b7-753bf866b943.png)
+
+
