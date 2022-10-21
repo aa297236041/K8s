@@ -194,14 +194,15 @@ k8s node 需要能从 bkrepo 中拉取镜像。因此需要配置 DNS 。
 请在 **中控机** 执行如下脚本 **生成 hosts 内容**，然后将其追加到所有的 `node` 的 `/etc/hosts` 文件结尾（如 pod 经历删除重建，则需要更新 hosts 文件覆盖 pod 相应的域名）。
 
 ``` bash
-BK_DOMAIN=bkce7.bktencent.com  # 请和 domain.bkDomain 保持一致.
-IP1=$(kubectl -n blueking get svc -l app.kubernetes.io/instance=ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
-IP2=$(kubectl -n blueking get svc -l app=bk-ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
+cd ~/bkhelmfile/blueking/  # 进入工作目录
+BK_DOMAIN=$(yq e '.domain.bkDomain' environments/default/custom.yaml)  # 从自定义配置中提取, 也可自行赋值
+IP1=$(kubectl get svc -A -l app.kubernetes.io/instance=ingress-nginx -o jsonpath='{.items[0].spec.clusterIP}')
 cat <<EOF
 $IP1 $BK_DOMAIN
 $IP1 bkrepo.$BK_DOMAIN
 $IP1 docker.$BK_DOMAIN
-$IP2 apps.$BK_DOMAIN
+$IP1 bknodeman.$BK_DOMAIN
+$IP1 apps.$BK_DOMAIN
 EOF
 ```
 
